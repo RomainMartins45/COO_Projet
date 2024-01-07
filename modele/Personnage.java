@@ -1,5 +1,6 @@
 package modele;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Personnage {
@@ -12,29 +13,56 @@ public class Personnage {
     private Chaussures chaussures;
     private List<Objet> inventaire;
 
-    public Personnage() {
-        // Initialisation des attributs si nécessaire
+    public Personnage(int vie, int force, int dexterite, int intelligence) {
+        this.vie = vie;
+        this.force = force;
+        this.dexterite = dexterite;
+        this.intelligence = intelligence;
+        this.arme = null;
+        this.armure = null;
+        this.chaussures = null;
+        this.inventaire = new ArrayList<>(); 
     }
 
     public void attaquer(Ennemi ennemi) {
-        // Implémentation de l'attaque
+        int degats = this.force;
+        ennemi.recevoirDegats(degats);
+    }
+    
+
+    public void recevoirDegats(int degats) {
+        this.vie -= degats;
+        if (this.vie <= 0) {
+            this.vie = 0;
+        }
     }
 
-    public void afficherInventaire() {
-        // Afficher l'inventaire
+    public boolean estVivant() {
+        return this.vie > 0;
     }
 
     public void consommerObjet(ObjetConsommable objet) {
-        // Consommer l'objet
+        if (inventaire.contains(objet)) {
+            objet.consommer(this);
+            inventaire.remove(objet);
+        } else {
+            System.out.println("Vous ne pouvez pas consommer un objet que vous n'avez pas !");
+        }
     }
 
     public void equiperObjet(ObjetEquipable objet) {
-        // Équiper l'objet
+        objet.equiper(this); 
     }
 
     public void jeterObjet(Objet objet) {
-        // Jeter l'objet de l'inventaire
+        if (inventaire.contains(objet)) {
+            inventaire.remove(objet);
+            System.out.println("Objet jeté : " + objet);
+        } else {
+            System.out.println("L'objet à jeter n'est pas dans l'inventaire.");
+        }
     }
+    
 
     public int getVie() {
         return vie;

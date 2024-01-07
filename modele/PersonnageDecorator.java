@@ -4,24 +4,14 @@ public abstract class PersonnageDecorator extends Personnage {
     protected Personnage personnage;
 
     public PersonnageDecorator(Personnage personnage) {
+        super(personnage.getVie(), personnage.getForce(), personnage.getDexterite(), personnage.getIntelligence()); // Appel explicite au constructeur parent
         this.personnage = personnage;
     }
 
-    public void changeForce() {
-        // Modifier la force
-    }
-
-    public void changeDexterite() {
-        // Modifier la dextérité
-    }
-
-    public void changeComposition() {
-        // Modifier la composition
-    }
-
-    public void changeVie() {
-        // Modifier la vie
-    }
+    public abstract void changeForce(int amount);
+    public abstract void changeDexterite(int amount);
+    public abstract void changeVie(int amount);
+    public abstract void changeIntelligence(int amount);
 
     public Personnage getPersonnage() {
         return personnage;
@@ -31,4 +21,5 @@ public abstract class PersonnageDecorator extends Personnage {
         this.personnage = personnage;
     }
 }
+
 

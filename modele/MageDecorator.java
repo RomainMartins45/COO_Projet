@@ -1,24 +1,43 @@
 package modele;
 
 public class MageDecorator extends PersonnageDecorator {
-    private int magie;
+    private int puissanceMagique; // Cela pourrait représenter le bonus de puissance magique
 
-    public MageDecorator(Personnage personnage) {
+    public MageDecorator(Personnage personnage, int puissanceMagique) {
         super(personnage);
-        this.magie = 0; // Initialiser avec la valeur appropriée
+        this.puissanceMagique = puissanceMagique;
     }
 
-    
-    public void changeIntelligence() {
-        // Logique spécifique pour augmenter l'intelligence d'un mage
+    @Override
+    public void changeForce(int amount) {
+        // Ne change pas la force
     }
 
-    public int getMagie() {
-        return magie;
+    @Override
+    public void changeDexterite(int amount) {
+        // Ne change pas la dexterite
     }
 
-    public void setMagie(int magie) {
-        this.magie = magie;
+    @Override
+    public void changeVie(int amount) {
+        int currentVie = personnage.getVie();
+        personnage.setVie(currentVie + amount);
+    }
+
+    @Override
+    public void changeIntelligence(int amount) {
+        int currentIntelligence = personnage.getIntelligence();
+        personnage.setIntelligence(currentIntelligence + amount + puissanceMagique);
+    }
+
+    public int getPuissanceMagique() {
+        return puissanceMagique;
+    }
+
+    public void setPuissanceMagique(int puissanceMagique) {
+        this.puissanceMagique = puissanceMagique;
     }
 }
+
+
 

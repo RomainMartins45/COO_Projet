@@ -1,6 +1,6 @@
 package modele;
 
-public interface ObjetEquippable extends Objet {
+public interface ObjetEquipable extends Objet {
     void equiper(Personnage personnage);
 }
 

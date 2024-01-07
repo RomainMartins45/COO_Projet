@@ -1,12 +1,18 @@
 package vue;
 
 import java.util.Scanner;
+
+import modele.Ennemi;
+import modele.Objet;
+import modele.Personnage;
+
 import java.util.List;
 
 public class Ihm {
     private Scanner scanner;
+    private Personnage personnage;
 
-    public Ihm() {
+    public Ihm(Personnage p) {
         this.scanner = new Scanner(System.in);
     }
 
@@ -26,6 +32,23 @@ public class Ihm {
         }
     }
 
+        public void afficherEtatCombat(Personnage joueur, List<Ennemi> ennemis) {
+        System.out.println("État du joueur : ");
+        System.out.println("Vie : " + joueur.getVie());
+
+        System.out.println("Ennemis :");
+        for (int i = 0; i < ennemis.size(); i++) {
+            Ennemi ennemi = ennemis.get(i);
+            if (ennemi.estVivant()) {
+                System.out.println("Ennemi " + (i + 1) + " - Vie : " + ennemi.getVie());
+            } else {
+                System.out.println("Ennemi " + (i + 1) + " - Défait");
+            }
+        }
+
+        System.out.println("---------------------------------------------------");
+    }
+
     public void afficherCreationPersonnage() {
         System.out.println("Création du personnage:");
         System.out.print("Entrez le nom de votre personnage: ");
@@ -43,10 +66,14 @@ public class Ihm {
         System.out.print("Choisissez un thème: ");
     }
 
-    public void afficherInventaire(List<String> objets) {
-        System.out.println("Votre inventaire:");
-        for (int i = 0; i < objets.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, objets.get(i));
+    public void afficherInventaire(List<Objet> inventaire) {
+        if (inventaire.isEmpty()) {
+            System.out.println("Votre inventaire est vide.");
+        } else {
+            System.out.println("Inventaire :");
+            for (Objet objet : inventaire) {
+                System.out.println("- " + objet);
+            }
         }
     }
 

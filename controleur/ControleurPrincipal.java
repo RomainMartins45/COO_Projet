@@ -4,8 +4,8 @@ import modele.Jeu;
 import vue.Ihm;
 
 public class ControleurPrincipal {
-    private Jeu jeu; // Le modèle
-    private Ihm ihm; // La vue
+    private Jeu jeu;
+    private Ihm ihm;
 
     public ControleurPrincipal(Jeu jeu, Ihm ihm) {
         this.jeu = jeu;

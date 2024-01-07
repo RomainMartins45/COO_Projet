@@ -3,7 +3,12 @@ package modele;
 public class PotionDeSoin implements ObjetConsommable {
     @Override
     public void consommer(Personnage personnage) {
-        // Logique pour consommer la potion de soin et affecter le personnage
+        personnage.setVie(personnage.getVie() + 30);
+    }
+
+    @Override
+    public String toString(){
+        return "Potion de soin";
     }
 }
 
