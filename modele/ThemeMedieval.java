@@ -5,8 +5,15 @@ import java.util.List;
 public class ThemeMedieval implements Theme {
 
     @Override
-    public Personnage configurerPersonnage() {
-        // Retourne un personnage configuré pour un thème médiéval
+    public Personnage configurerPersonnage(String typePersonnage) {
+        switch (typePersonnage) {
+            case "Mage":
+                return new MageDecorator(new Personnage(100, 10, 10, 20), 50);
+            case "Guerrier":
+                return new GuerrierDecorator(new Personnage(100, 20, 15, 5));
+            default:
+                return new Personnage(100, 10, 10, 10);
+        }
     }
 
     @Override

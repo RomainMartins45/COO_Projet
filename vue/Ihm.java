@@ -5,23 +5,24 @@ import java.util.Scanner;
 import modele.Ennemi;
 import modele.Objet;
 import modele.Personnage;
+import modele.Theme;
+import modele.ThemeMedieval;
+import modele.ThemePrehistorique;
 import modele.Zone;
 
 import java.util.List;
 
 public class Ihm {
     private Scanner scanner;
-    private Personnage personnage;
 
-    public Ihm(Personnage p) {
+    public Ihm() {
         this.scanner = new Scanner(System.in);
     }
 
     public void afficherMenuPrincipal() {
         System.out.println("Bienvenue dans le RPG!");
         System.out.println("1. Commencer une nouvelle partie");
-        System.out.println("2. Charger une partie");
-        System.out.println("3. Quitter");
+        System.out.println("2. Quitter");
         System.out.print("Choisissez une option: ");
     }
 
@@ -146,6 +147,46 @@ public class Ihm {
 
     public void afficherMessage(String message) {
         System.out.println(message);
+    }
+
+    public Theme demanderTheme() {
+        System.out.println("Veuillez choisir un thème pour votre jeu :");
+        System.out.println("1. Thème Médiéval");
+        System.out.println("2. Thème Préhistorique");
+        System.out.print("Votre choix (1 ou 2): ");
+
+        int choix = scanner.nextInt();
+        switch (choix) {
+            case 1:
+                System.out.println("Vous avez choisi le thème Mediéval");
+                return new ThemeMedieval();
+            case 2:
+                System.out.println("Vous avez choisi le thème Préhistorique");
+                return new ThemePrehistorique();
+            default:
+                System.out.println("Choix invalide. Veuillez choisir 1 pour Médiéval ou 2 pour Préhistorique.");
+                return demanderTheme();
+        }
+    }
+
+    public String demanderTypePersonnagePrehistorique() {
+        System.out.println("Choisissez votre classe de personnage pour le thème Préhistorique : ");
+        System.out.println("1. Chasseur");
+        System.out.println("2. Chamane");
+        System.out.print("Votre choix (1 ou 2): ");
+
+        int choix = scanner.nextInt();
+        switch (choix) {
+            case 1:
+                System.out.println("Vous avez choisi la classe Chasseur");
+                return "Chasseur";
+            case 2:
+                System.out.println("Vous avez choisi la classe Chamane");
+                return "Chamane";
+            default:
+                System.out.println("Choix invalide. Veuillez choisir 1 pour Chasseur ou 2 pour Chamane.");
+                return demanderTypePersonnagePrehistorique(); // Appel récursif pour demander à nouveau
+        }
     }
 
 }
