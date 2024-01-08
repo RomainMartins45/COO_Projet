@@ -21,7 +21,8 @@ public class Personnage {
         this.arme = null;
         this.armure = null;
         this.chaussures = null;
-        this.inventaire = new ArrayList<>(); 
+        this.inventaire = new ArrayList<>();
+        this.inventaire.add(new PotionDeSoin()); 
     }
 
     public void attaquer(Ennemi ennemi) {

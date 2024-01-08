@@ -12,8 +12,8 @@ public class Jeu {
 
     public void demarrerJeu() {
 
-        List<Zone> zones = theme.configurerZones();
-        List<Objet> objets = theme.configurerObjets();
+        // List<Zone> zones = theme.configurerZones();
+        // List<Objet> objets = theme.configurerObjets();
     }
 
     public Theme getTheme() {
@@ -26,6 +26,10 @@ public class Jeu {
 
     public void setPersonnage(Personnage personnage) {
         this.personnage = personnage;
+    }
+
+    public Personnage getPersonnage() {
+        return personnage;
     }
 }
 

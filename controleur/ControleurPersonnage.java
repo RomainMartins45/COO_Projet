@@ -3,6 +3,7 @@ package controleur;
 import java.util.List;
 
 import modele.Objet;
+import modele.ObjetConsommable;
 import modele.ObjetEquipable;
 import modele.Personnage;
 import vue.Ihm;
@@ -16,30 +17,25 @@ public class ControleurPersonnage {
         this.ihm = ihm;
     }
 
-    public void afficherInventaire() {
-        List<Objet> inventaire = personnage.getInventaire();
-        ihm.afficherInventaire(inventaire);
-    }
+    public void gererInventaire() {
+        int choixObjet = ihm.choisirObjetDansInventaire(personnage.getInventaire());
+        if (choixObjet < 0 || choixObjet >= personnage.getInventaire().size()) {
+            return;
+        }
 
-    public void equiperObjet(ObjetEquipable objet) {
-        personnage.equiperObjet(objet);
-        ihm.afficherMessage("Objet équipé : " + objet);
-    }
+        Objet objetChoisi = personnage.getInventaire().get(choixObjet);
+        int action = ihm.demanderActionObjet();
 
-    public void jeterObjet() {
-        int choix = ihm.demanderChoixObjet(personnage.getInventaire());
-
-        // Vérifier si le choix est valide
-        if (choix >= 0 && choix < personnage.getInventaire().size()) {
-            Objet objetAJetee = personnage.getInventaire().get(choix);
-            personnage.jeterObjet(objetAJetee);
-            ihm.afficherMessage("Vous avez jeté : " + objetAJetee);
-        } else {
-            ihm.afficherMessage("Choix invalide.");
+        if (action == 1) {
+            personnage.jeterObjet(objetChoisi);
+        } else if (action == 2) {
+            if (objetChoisi instanceof ObjetConsommable) {
+                personnage.consommerObjet((ObjetConsommable) objetChoisi);
+            } else if (objetChoisi instanceof ObjetEquipable) {
+                personnage.equiperObjet((ObjetEquipable) objetChoisi);
+            }
         }
     }
-
-    
 
 }
 

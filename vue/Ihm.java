@@ -30,7 +30,7 @@ public class Ihm {
         try {
             return Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
-            return -1; // Retourner une valeur qui indique une entrée invalide
+            return -1;
         }
     }
 
@@ -86,17 +86,6 @@ public class Ihm {
         }
     }
 
-    public void afficherInventaire(List<Objet> inventaire) {
-        if (inventaire.isEmpty()) {
-            System.out.println("Votre inventaire est vide.");
-        } else {
-            System.out.println("Inventaire :");
-            for (Objet objet : inventaire) {
-                System.out.println("- " + objet);
-            }
-        }
-    }
-
     public void afficherEtatCombat(String etat) {
         System.out.println(etat);
     }
@@ -106,8 +95,6 @@ public class Ihm {
     }
 
     public void nettoyerEcran() {
-        // Ceci est une façon simpliste de "nettoyer" la console en Java, 
-        // cela ne fonctionnera pas dans toutes les consoles ou environnements.
         for (int i = 0; i < 50; i++) System.out.println();
     }
 
@@ -119,26 +106,27 @@ public class Ihm {
     System.out.println("Vous explorez: " + zoneActuelle.getNom());
     }
 
-    public int demanderChoixObjet(List<Objet> inventaire) {
+    public int choisirObjetDansInventaire(List<Objet> inventaire) {
         if (inventaire.isEmpty()) {
             System.out.println("Votre inventaire est vide.");
-            return -1; // Retourne -1 pour indiquer qu'il n'y a pas de choix disponible
+            return -1;
         }
 
-        System.out.println("Sélectionnez un objet à jeter:");
+        System.out.println("Votre inventaire :");
         for (int i = 0; i < inventaire.size(); i++) {
-            System.out.println(i + 1 + ". " + inventaire.get(i)); // Affiche chaque objet avec un index
+            System.out.println((i + 1) + ". " + inventaire.get(i));
         }
 
-        System.out.println("Entrez le numéro de l'objet à jeter (ou 0 pour annuler):");
-        int choix = scanner.nextInt() - 1; // Soustrait 1 pour obtenir l'index basé sur zéro
+        System.out.print("Choisissez un objet (ou 0 pour revenir en arrière): ");
+        return scanner.nextInt() - 1;
+    }
 
-        // Vérification de la validité de l'entrée
-        if (choix >= 0 && choix < inventaire.size()) {
-            return choix; // Retourne l'index valide de l'objet choisi
-        } else {
-            return -1; // Retourne -1 si le choix est invalide
-        }
+    public int demanderActionObjet() {
+        System.out.println("Choisissez une action :");
+        System.out.println("1. Jeter l'objet");
+        System.out.println("2. Consommer/Équiper l'objet");
+        System.out.print("Votre choix (1 ou 2): ");
+        return scanner.nextInt();
     }
     
     public void afficherResultatAction(String resultat) {
@@ -185,8 +173,27 @@ public class Ihm {
                 return "Chamane";
             default:
                 System.out.println("Choix invalide. Veuillez choisir 1 pour Chasseur ou 2 pour Chamane.");
-                return demanderTypePersonnagePrehistorique(); // Appel récursif pour demander à nouveau
+                return demanderTypePersonnagePrehistorique(); 
         }
+    }
+
+    public void afficherMenuSecondaire() {
+        System.out.println("Menu Secondaire:");
+        System.out.println("1. Entrer dans le donjon");
+        System.out.println("2. Gérer l'inventaire");
+        System.out.println("3. Voir les statistiques du personnage");
+        System.out.println("4. Revenir au menu principal");
+    }
+
+    public void afficherStatistiquesPersonnage(Personnage personnage) {
+        System.out.println("Statistiques du Personnage:");
+        System.out.println("Vie: " + personnage.getVie());
+        System.out.println("Force: " + personnage.getForce());
+        System.out.println("Dextérité: " + personnage.getDexterite());
+        System.out.println("Intelligence: " + personnage.getIntelligence());
+        System.out.println("Arme: " + (personnage.getArme() != null ? personnage.getArme() : "Aucune"));
+        System.out.println("Armure: " + (personnage.getArmure() != null ? personnage.getArmure() : "Aucune"));
+        System.out.println("Chaussures: " + (personnage.getChaussures() != null ? personnage.getChaussures() : "Aucune"));
     }
 
 }
