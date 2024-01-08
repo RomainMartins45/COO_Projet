@@ -5,6 +5,7 @@ import java.util.Scanner;
 import modele.Ennemi;
 import modele.Objet;
 import modele.Personnage;
+import modele.Zone;
 
 import java.util.List;
 
@@ -66,6 +67,24 @@ public class Ihm {
         System.out.print("Choisissez un thème: ");
     }
 
+    public String demanderTypePersonnageMédieval() {
+        System.out.println("Choisissez votre classe de personnage : ");
+        System.out.println("1. Mage");
+        System.out.println("2. Guerrier");
+        System.out.print("Votre choix (1 ou 2): ");
+
+        int choix = scanner.nextInt();
+        switch (choix) {
+            case 1:
+                return "Mage";
+            case 2:
+                return "Guerrier";
+            default:
+                System.out.println("Choix invalide. Choisissez 1 pour Mage ou 2 pour Guerrier.");
+                return demanderTypePersonnageMédieval();
+        }
+    }
+
     public void afficherInventaire(List<Objet> inventaire) {
         if (inventaire.isEmpty()) {
             System.out.println("Votre inventaire est vide.");
@@ -95,6 +114,39 @@ public class Ihm {
         scanner.close();
     }
 
-    // D'autres méthodes pour gérer les différents affichages et entrées utilisateur peuvent être ajoutées ici.
+    public void afficherEtatExploration(Zone zoneActuelle) {
+    System.out.println("Vous explorez: " + zoneActuelle.getNom());
+    }
+
+    public int demanderChoixObjet(List<Objet> inventaire) {
+        if (inventaire.isEmpty()) {
+            System.out.println("Votre inventaire est vide.");
+            return -1; // Retourne -1 pour indiquer qu'il n'y a pas de choix disponible
+        }
+
+        System.out.println("Sélectionnez un objet à jeter:");
+        for (int i = 0; i < inventaire.size(); i++) {
+            System.out.println(i + 1 + ". " + inventaire.get(i)); // Affiche chaque objet avec un index
+        }
+
+        System.out.println("Entrez le numéro de l'objet à jeter (ou 0 pour annuler):");
+        int choix = scanner.nextInt() - 1; // Soustrait 1 pour obtenir l'index basé sur zéro
+
+        // Vérification de la validité de l'entrée
+        if (choix >= 0 && choix < inventaire.size()) {
+            return choix; // Retourne l'index valide de l'objet choisi
+        } else {
+            return -1; // Retourne -1 si le choix est invalide
+        }
+    }
+    
+    public void afficherResultatAction(String resultat) {
+        System.out.println(resultat);
+    }
+
+    public void afficherMessage(String message) {
+        System.out.println(message);
+    }
+
 }
 

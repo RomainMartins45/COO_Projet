@@ -1,9 +1,11 @@
 package modele;
 
 public class Armure implements ObjetEquipable {
+    private String nom;
     private int bonusVie;
 
-    public Armure(int bonusVie) {
+    public Armure(String nom,int bonusVie) {
+        this.nom = nom;
         this.bonusVie = bonusVie;
     }
 

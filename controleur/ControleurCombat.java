@@ -78,6 +78,8 @@ public class ControleurCombat {
             // Peut-être accorder de l'expérience, des objets, etc.
         }
     }
+
+    
 }
 
 

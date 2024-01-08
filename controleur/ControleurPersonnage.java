@@ -3,6 +3,7 @@ package controleur;
 import java.util.List;
 
 import modele.Objet;
+import modele.ObjetEquipable;
 import modele.Personnage;
 import vue.Ihm;
 
@@ -19,5 +20,26 @@ public class ControleurPersonnage {
         List<Objet> inventaire = personnage.getInventaire();
         ihm.afficherInventaire(inventaire);
     }
+
+    public void equiperObjet(ObjetEquipable objet) {
+        personnage.equiperObjet(objet);
+        ihm.afficherMessage("Objet équipé : " + objet);
+    }
+
+    public void jeterObjet() {
+        int choix = ihm.demanderChoixObjet(personnage.getInventaire());
+
+        // Vérifier si le choix est valide
+        if (choix >= 0 && choix < personnage.getInventaire().size()) {
+            Objet objetAJetee = personnage.getInventaire().get(choix);
+            personnage.jeterObjet(objetAJetee);
+            ihm.afficherMessage("Vous avez jeté : " + objetAJetee);
+        } else {
+            ihm.afficherMessage("Choix invalide.");
+        }
+    }
+
+    
+
 }
 

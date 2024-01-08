@@ -1,9 +1,11 @@
 package modele;
 
 public class Chaussures implements ObjetEquipable {
+    private String nom;
     private int bonusAgilite;
 
-    public Chaussures(int bonusAgilite) {
+    public Chaussures(String nom,int bonusAgilite) {
+        this.nom = nom;
         this.bonusAgilite = bonusAgilite;
     }
 

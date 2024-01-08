@@ -1,6 +1,7 @@
 package modele;
 
 public class PotionDeSoin implements ObjetConsommable {
+    private String nom;
     @Override
     public void consommer(Personnage personnage) {
         personnage.setVie(personnage.getVie() + 30);
